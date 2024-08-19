@@ -13,10 +13,41 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+
+            $table->string('username')->unique();
+            $table->string('given_name')->nullable();
+            $table->string('middle_name')->nullable();
+            $table->string('family_name')->nullable();
+            $table->string('nickname')->nullable();
+
+            $table->date('birthdate')->nullable();
+            $table->string('location')->nullable();
+            $table->string('gender')->nullable();
+            $table->bigInteger('contact')->nullable();
+
+            $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
+
             $table->string('password');
+
+            $table->string('ip')->nullable();
+            $table->string('user_agent')->nullable();
+
+            $table->string('github_id')->nullable();
+            $table->string('github_name')->nullable();
+            $table->string('github_avatar_url')->nullable();
+            $table->string('github_page_url')->nullable();
+            $table->timestamp('github_joined_date')->nullable();
+
+            $table->string('google_id')->nullable();
+            $table->string('google_name')->nullable();
+            $table->string('google_avatar_url')->nullable();
+
+            $table->string('facebook_id')->nullable();
+            $table->string('facebook_name')->nullable();
+            $table->string('facebook_avatar_url')->nullable();
+            $table->string('facebook_profile_url')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
