@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\LoginRequest;
 use App\Http\Requests\V1\RegisterRequest;
+use App\Http\Resources\V1\ValidateResource;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Http\Request;
@@ -41,13 +42,12 @@ class AuthController extends Controller
         }
     }
 
-    // public function login()
-    // {
-    //     try {
-
-    //     } catch (Exception $e) {
-    //         return response($e->getMessage());
-    //     }
-    // }
+    public function validate(Request $request)
+    {
+        return response()->json([
+            'data' => new ValidateResource($request->user()),
+            'message' => 'API request done'
+        ]);
+    }
 
 }
