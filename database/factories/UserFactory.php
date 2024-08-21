@@ -31,6 +31,7 @@ class UserFactory extends Factory
         $nickName = $this->faker->firstName($gender);
         $middleName = $this->faker->randomElement([$this->faker->lastName($gender), null]);
         $lastName = $this->faker->lastName($gender);
+        $username = strtolower($firstName);
 
         $birthdate = $this->faker->date('Y-m-d', '2002-01-01');
         $location = $this->faker->address();
@@ -57,7 +58,7 @@ class UserFactory extends Factory
 
         return [
 
-            'username' => $firstName . '123',
+            'username' => $username,
             'given_name' => $firstName,
             'middle_name' => $middleName,
             'family_name' => $lastName,
