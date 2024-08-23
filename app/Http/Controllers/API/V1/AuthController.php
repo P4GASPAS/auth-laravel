@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\LoginRequest;
+use App\Http\Requests\V1\OauthRequest;
 use App\Http\Requests\V1\RegisterRequest;
 use App\Http\Resources\V1\ValidateResource;
 use App\Services\AuthService;
@@ -48,6 +49,22 @@ class AuthController extends Controller
             'data' => new ValidateResource($request->user()),
             'message' => 'API request done'
         ]);
+    }
+
+    public function oauth(OauthRequest $request, AuthService $service)
+    {
+        try {
+            $payload = $request->all();
+            $payload['ip'] = $request->ip() ?? null;
+            $payload['user_agent'] = $request->userAgent() ?? null;
+            $data = $service->oauth($payload);
+            return response()->json([
+                'data' => $data,
+                'message' => 'API request done'
+            ]);
+        } catch(Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
 }

@@ -30,4 +30,22 @@ class UserService
 
         return $user;
     }
+
+    public function createOrUpdateGithubProfile($payload)
+    {
+        $user = User::updateOrCreate(
+            ['github_id' => $payload['id']],
+            [
+                'nickname' => $payload['nickname'] ?? null,
+                'email' => $payload['email'] ?? null,
+                'github_id' => $payload['id'],
+                'github_name' => $payload['name'],
+                'github_avatar_url' => $payload['avatar'] ?? null,
+                'github_page_url' => $payload['user']['html_url'] ?? null,
+                'github_joined_date' => $usepayload['user']['created_at'] ?? null
+            ]
+        );
+
+        return $user;
+    }
 }
